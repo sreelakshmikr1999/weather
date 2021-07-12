@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("image.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            position: relative;
+            background-size: 100% 100%;
+        }
+
+        .outer {
+            width: 450px;
+            height: 400px;
+            background-color: #4fbfe5;
+            padding-left: 25px;
+
+            padding-top: 25px;
+            margin-top: 50px;
+
+        }
+        .div1{
+  float: left;
+  padding: 15px; 
+}
+
+    </style>
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4"><input type="text" placeholder="Enter the Location" id="weathr" class="form-control mt-5">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <div class="col-4"><button onclick="FetchWeather()" class="btn btn-secondary mt-2 ms-4">Click
+                        here</button></div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <!-- ============================================ -->
+
+
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 outer">
+
+            <!-- ===================================-->
+            <div id="result"></div>
+
+
+
+            <!--================================== -->
+        </div>
+    </div>
+    <div class="col-4" ></div>
+    </div>
+
+    <!-- ============================================================================ -->
+
+
+
+
+
+
+</body>
+<script>
+    function populate(weathr) {
+        let name = weathr.name;
+        let temparature = weathr.main.temp;
+        let discription = weathr.weather[0].description;
+        let presure = weathr.main.pressure;
+        let humidity = weathr.main.humidity;
+        let wind=weathr.wind.speed;
+
+        ///=====================================================================
+
+        let html_data = ` <h1 style="font-size: 90px; color: white; font-weight: bolder;">${temparature}</h1>
+       <h4 style=" color: white; font-family: Georgia, 'Times New Roman', Times, serif;">${name}</h4>
+       <h4 style=" color: white;  font-family: Georgia, 'Times New Roman', Times, serif;">${discription}</h4>
+        <div class="abc">
+            <div class="div1" style=" color:#617277; font-size: 20px; font-weight: bolder ">Pressure  <br>${presure}</div>
+<div class="div1" style=" color:#617277; font-size: 20px; font-weight: bolder ">Humidity <br> ${humidity}</div>
+<div class="div1" style=" color:#617277 ; font-size: 20px;font-weight: bolder ">Wind Speed <br>${wind}</div>
+`
+
+     ///====================================================================
+     result.innerHTML=html_data;
+ }
+function FetchWeather(){
+            let place_name=weathr.value;
+            let url=`https://api.openweathermap.org/data/2.5/weather?q=${place_name}&appid=595d42c3c6fecd3e4a92739c7bab1c73&units=metric`;
+                fetch(url).then(ress => ress.json()).then(data => populate(data))
+    }
+
+
+</script>
+
+</html>
